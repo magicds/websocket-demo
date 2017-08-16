@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>公共聊天室</title>
+  <style>
+    p {
+      padding: 0 10px;
+    }
+
+    .left {
+      color: #f00;
+    }
+
+    .enter {
+      color: #00f;
+    }
+
+    .message {
+      color: #000;
+    }
+  </style>
+</head>
+
+<body>
+  <h3>当前群聊人数：<span id="count"></span></h3>
+  请输入消息<input type="text" id="send">
+  <input type="button" id="send-btn" value="发送">
+  <hr>
+  <p>消息记录：</p>
+  <div id="recive"></div>
+  <script>
+    var socket = new WebSocket('ws://localhost:8001');
+    var sendInput = document.getElementById('send');
+    var recive = document.getElementById('recive');
+    var count = document.getElementById('count');
+
+    socket.onopen = function (data) {
+      console.log('opened', data);
+      document.getElementById('send-btn').addEventListener('click', function () {
+        var value = sendInput.value.trim();
+        value && socket.send(sendInput.value);
+      });
+    };
+
+    socket.onclose = function () {
+      console.log('close');
+    };
+
+    socket.onmessage = function (e) {
+      var data = JSON.parse(e.data);
+      console.log(data)
+      var type = data.type;
+      if (type == 'countUpdate') {
+        count.innerText = data.data;
+      } else {
+        showMessage(type, data.data);
+      }
+    };
+
+    function showMessage(type, msg) {
+      var p = document.createElement('p');
+      p.className = type;
+      p.innerHTML = msg;
+      recive.appendChild(p);
+    }
+  </script>
+</body>
+
+</html>
