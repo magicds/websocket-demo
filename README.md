@@ -6,7 +6,7 @@
 
 使用**HTML5**中的 `WebSocket` 作为客户端，使用 `nodejs-websocket` 作为服务端演示websocket使用。
 
-## demo2 [demo1](./demo2)
+## demo2 [demo2](./demo2)
 
 使用 `WebSocket` 和 `nodejs-websocket` 实现非常简易的多人聊天室。
 
