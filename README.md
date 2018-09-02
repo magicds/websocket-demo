@@ -13,3 +13,7 @@
 ## [demo3](./demo3)
 
 使用 `socket.io` 实现一个聊天室，此demo来自 `socket.io` 官方演示。
+
+##  [demo4](./demo4)
+
+使用 socket.io 模拟 websocket 连接管理

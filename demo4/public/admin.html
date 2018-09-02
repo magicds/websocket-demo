@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <label for="type">输入类型</label><input type="text" value="message" id="type">
+    <br>
+    <label for="type">输入内容</label><textarea id="content" cols="30" rows="10">这里是消息内容</textarea>
+    <br>
+    <button onclick="send()">广播</button>
+
+    <h2>客户端连接：</h2>
+    <ul id="socket-list"></ul>
+    <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+        var socket = io('/admin');
+
+        var typeEl = document.getElementById('type');
+        var contentEl = document.getElementById('content');
+        var clientListEl = document.getElementById('socket-list');
+
+        function send(socketId) {
+            var type = typeEl.value.trim();
+            var content = contentEl.value.trim();
+            if (type && content) {
+                if (socketId) {
+                    socket.emit('sendMessage', {
+                        id: socketId,
+                        message: {
+                            type,
+                            content
+                        }
+                    });
+                } else {
+                    socket.emit('broadcast', {
+                        type,
+                        content
+                    });
+                }
+            } else {
+                alert('必须输入内容');
+            }
+        }
+
+        // 新客户端连接时 更新客户端列表
+        socket.on('newcontent', function (sockets) {
+            console.log(sockets);
+
+            clientListEl.innerHTML = '';
+            sockets.forEach((id) => {
+                $(`<li >${id} <span onclick="send('${id}')">点击给此客户端推送消息</span></li>`).appendTo(
+                    clientListEl);
+            });
+        });
+
+        socket.on('connect', () => {
+            console.log('connect');
+        });
+        socket.on('connect_error', () => {
+            console.log('connect_error');
+        });
+        socket.on('disconnect', function (reason) {
+            console.log('disconnect', arguments);
+            if (reason === 'io server disconnect') {
+                // the disconnection was initiated by the server, you need to reconnect manually
+                socket.connect();
+            }
+            // else the socket will automatically try to reconnect
+        });
+    </script>
+</body>
+
+</html>

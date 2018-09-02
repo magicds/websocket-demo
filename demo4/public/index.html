@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <ul id="message-list"></ul>
+    <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+        var socket = io('/test');
+
+        var typeEl = document.getElementById('type');
+        var contentEl = document.getElementById('content');
+        var listEl = document.getElementById('message-list');
+
+        socket.on('server.receive', function (data) {
+            console.log(data);
+        });
+        socket.on('message', function (data) {
+            console.log(data);
+            $(`<li><pre>${JSON.stringify(data,0,4)}</pre></li>`).appendTo(listEl);
+        });
+
+        socket.on('connect', () => {
+            console.log('connect');
+        });
+        socket.on('connect_error', () => {
+            console.log('connect_error');
+        });
+        socket.on('disconnect', function (reason) {
+            console.log('disconnect', arguments);
+            if (reason === 'io server disconnect') {
+                // the disconnection was initiated by the server, you need to reconnect manually
+                socket.connect();
+            }
+            // else the socket will automatically try to reconnect
+        });
+    </script>
+</body>
+
+</html>
