@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .wrap {
+            display: flex;
+            height: 90vh;
+            flex-wrap: wrap;
+        }
+
+        .wrap iframe {
+            flex-grow: 1;
+            width: 50%;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="wrap">
+        <iframe src="./index.html?roomId=1&username=青龙" frameborder="0"></iframe>
+        <iframe src="./index.html?roomId=1&username=白虎" frameborder="0"></iframe>
+        <iframe src="./index.html?roomId=2&username=玄武" frameborder="0"></iframe>
+        <iframe src="./index.html?roomId=2&username=朱雀" frameborder="0"></iframe>
+    </div>
+</body>
+
+</html>

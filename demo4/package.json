@@ -1,0 +1,25 @@
+{
+  "name": "websocket-demo",
+  "version": "1.0.0",
+  "description": "",
+  "main": "some websocket demos",
+  "scripts": {
+    "test": "''"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/cdswyda/websocket-demo"
+  },
+  "keywords": [
+    "websocket",
+    "nodejs-websocket",
+    "socket.io"
+  ],
+  "author": "cdswyda",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.15.4",
+    "nodejs-websocket": "^1.7.1",
+    "socket.io": "^2.4.0"
+  }
+}

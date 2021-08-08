@@ -1,6 +1,6 @@
 # websocket 示例
 
-`npm install` 安装所需依赖，进入目录查看即可。
+进入目录 `npm install` 安装所需依赖，查看即可。
 
 ## [demo1](./demo1)
 
@@ -17,3 +17,7 @@
 ##  [demo4](./demo4)
 
 使用 socket.io 模拟 websocket 连接管理
+
+## [demo5](./demo5)
+
+使用 ws 库作为服务端， 多人多房间聊天demo 含鉴权。
