@@ -20,4 +20,4 @@
 
 ## [demo5](./demo5)
 
-使用 ws 库作为服务端， 多人多房间聊天demo 含鉴权。
+使用 [ws](https://www.npmjs.com/package/ws) 库作为服务端， 多人多房间聊天 demo 含鉴权。
