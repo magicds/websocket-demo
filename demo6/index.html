@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        ul {
+            max-height: 50vh;
+            overflow-x: hidden;
+            list-style: none;
+        }
+
+        li {
+            margin-bottom: 4px;
+        }
+
+        li.system {
+            text-align: center;
+        }
+
+        li.system span {
+            background-color: #efefef;
+            text-align: center;
+            border-radius: 4px;
+            padding: 0 4px;
+        }
+
+
+        li.message {
+            /* display: flex; */
+        }
+
+        li.message span:last-child {
+            float: right;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <div id="app" @mounted="mounted">
+        <div v-if="!login">
+            <fieldset>
+                <label> 房间id <input type="text" v-model="roomId"></label>
+                <br>
+                <label> 用户名 <input type="text" v-model="username"></label>
+                <br>
+                <button @click="enter">进入</button>
+            </fieldset>
+        </div>
+        <div v-else>
+            <p>当前在线：<span>{{num}}</span></p>
+            <ul ref="list">
+                <li v-for="item in list" :class="item.type">
+                    <span v-if="item.sender">{{item.sender}} :</span>
+                    <span>{{item.message}}</span>
+                    <span>{{item.date}}</span>
+                </li>
+            </ul>
+            <div>
+                <textarea v-model="message" cols="30" rows="3"></textarea>
+                <button @click="send">发送</button>
+                <button @click="exit">关闭</button>
+            </div>
+        </div>
+    </div>
+    <script src="https://unpkg.com/petite-vue"></script>
+    <script src="./index.js"></script>
+</body>
+
+</html>
